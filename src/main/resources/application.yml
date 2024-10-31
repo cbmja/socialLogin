@@ -1,0 +1,41 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: sociallogintut
+
+  mvc:
+    view:
+      suffix: .html
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/social_login?serverTimezone=UTC&characterEncoding=UTF-8
+    username: spocerti
+    password: 8991
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: mapper/*.xml
+  type-aliases-package:
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com.spo.certificate: DEBUG
+    org.mybatis: DEBUG
+    org.mybatis.spring: DEBUG
+
+storage:
+  receivingPath: ./
+
+kakao:
+  NATIVE_APP_KEY: 8f8a62a7f1569022af5cdfbd220acf00
+  REST_API_KEY: 568e633d45565d3d7bc2f1b8b6eb098c
+  JAVA_SCRIPT_KEY: ea59a2e466087091141d5d08d22d7dbd
+  ADMIN_KEY: 45dabb1273a0e8c4babf91da42d9f7a7
+  KAKAO_CLIENT_SECRET: UPvGkX4xriJl13Wu5lFfwiMHYVxDb1K3
+
+
+
