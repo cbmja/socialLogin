@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: sociallogintut
+
+  mvc:
+    view:
+      suffix: .html
+
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/social_login?serverTimezone=UTC&characterEncoding=UTF-8
+    username: spocerti
+    password: 8991
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+mybatis:
+  mapper-locations: mapper/*.xml
+  type-aliases-package:
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    com.spo.certificate: DEBUG
+    org.mybatis: DEBUG
+    org.mybatis.spring: DEBUG
+
+storage:
+  receivingPath: ./
+
