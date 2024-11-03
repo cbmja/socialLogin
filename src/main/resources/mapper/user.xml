@@ -5,7 +5,7 @@
 <mapper namespace="com.social.login.sociallogintut.member.mapper.UserMapper">
 
     <select id="findByLoginTypeAndLoginId" parameterType="User" resultType="User">
-        SELECT * FROM socail_login.user WHERE login_type = #{loginType} AND login_id = #{login_id}
+        SELECT * FROM socail_login.user WHERE login_type = #{loginType} AND login_id = #{loginId}
     </select>
 
 
