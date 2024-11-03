@@ -1,9 +1,15 @@
 package com.social.login.sociallogintut.member.controller;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.interfaces.DecodedJWT;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.social.login.sociallogintut.member.dto.User;
 import com.social.login.sociallogintut.member.service.MemberInfoService;
+import com.social.login.sociallogintut.member.service.MemberSaveService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +24,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
+import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.security.KeyFactory;
+import java.security.PublicKey;
+import java.security.spec.RSAPublicKeySpec;
 import java.util.Base64;
 import java.util.Map;
 
@@ -25,6 +37,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/api/v1/member")
 public class KakaoLoginProcess {
+
 
     @Value("${kakao.nativeAppKey}")
     private String kakao_nativeAppKey;
@@ -34,56 +47,80 @@ public class KakaoLoginProcess {
     private String kakao_redirectUri;
 
     private final MemberInfoService memberInfoService;
+    private final MemberSaveService memberSaveService;
 
 
     @GetMapping("/kakao/callback")
     @ResponseBody
-    public String kakaoLoginProc(@RequestParam Map<String , String> params){
+    public String kakaoLoginProc(@RequestParam Map<String , String> params , HttpServletRequest request , HttpServletResponse response){
 
         String code = (String)params.get("code");
         String state = (String)params.get("state");
         String _state = "1234";
-        System.out.println("code: "+code+"==========================================================================================");
-        System.out.println("state: "+state+"==========================================================================================");
-        // state 체크 ----------------------------------------------------------------------------------------- state 체크
+        System.out.println("===== code: "+code+"============================================================================================================================================");
+        System.out.println("===== state: "+state+"============================================================================================================================================");
+        // state 체크 ----------------------------------------------------------------------------------------- state 체크 ok
         if(!state.equals(_state)){
-            return null;
+            return null; // state 검증 실패
         }
-        // code 체크 ------------------------------------------------------------------------------------------- code 체크
+        // code 체크 ------------------------------------------------------------------------------------------- code 체크 ok
         if(code == null || code.isBlank()){
-            return null;
+            return null; // code 발급 실패
         }
 
-        // token 요청 ----------------------------------------------------------------------------------------- token 요청
+        // token 요청 ----------------------------------------------------------------------------------------- token 요청 ok
         // token_type / access_token / id_token expires_in / refresh_token / refresh_token_expires_in / scope
-        ResponseDto response = this.getKakaoToken(code);
-        System.out.println("id token: "+response.getIdToken()+"==========================================================================================");
-        // id token 디코딩 -------------------------------------------------------------------------------- id token 디코딩
-        this.decodeToken(response.getIdToken() , response);
-        String loginId = response.getLoginId();
-
+        LoginDto loginDto = this.getKakaoToken(code);
+        System.out.println("===== id_token: "+loginDto.getIdToken()+"============================================================================================================================================");
+        // id token 디코딩 -------------------------------------------------------------------------------- id token 디코딩 ok
+        this.verifyToken(loginDto.getIdToken() , loginDto);
+        String loginId = loginDto.getLoginId();
         if(loginId == null || loginId.isBlank()){
-            return null;
+            return null; // token decode 실패
         }
 
         User user = new User();
         user.setLoginType("kakao");
-        user.setLoginId(response.getLoginId());
-
+        user.setLoginId(loginDto.getLoginId());
+        System.out.println("===== loginType: "+user.getLoginType()+"============================================================================================================================================");
+        System.out.println("===== loginId: "+user.getLoginId()+"============================================================================================================================================");
         User isUser = memberInfoService.findByLoginTypeAndLoginId(user);
-        // 회원 가입 -------------------------------------------------------------------------------------------- 회원 가입
+        // 회원 가입 -------------------------------------------------------------------------------------------- 회원 가입 ok
         if(isUser == null){
-            System.out.println("sign up==========================================================================================");
-        }else{ // 로그인 ------------------------------------------------------------------------------------------- 로그인
-            System.out.println("sign in==========================================================================================");
+            System.out.println("sign up====================================================================================================================================================================================");
+            // 동의 항목 수집 필요
+            
+            user.setUserName(memberSaveService.genUserName());
+
+            int joinResult = memberSaveService.save(user);
+            if(joinResult <= 0){
+                return null; // 회원가입 실패
+            }
+            
+
+        }
+
+        // 로그인 ------------------------------------------------------------------------------------------- 로그인
+        System.out.println("sign in====================================================================================================================================================================================");
+        int loginResult = memberSaveService.login(user.getUserId());
+        if(loginResult <= 0){
+            return null; //로그인 실패
+        }else{
+            String loginToken = memberSaveService.genAccessToken(user);
+
+            Cookie loginCookie = new Cookie("accessToken" , loginToken);
+            loginCookie.setPath("/");
+            loginCookie.setHttpOnly(true); // 자바스크립트에서 접근 불가하게 설정(보안)
+            loginCookie.setMaxAge(60 * 60 * 24 * 14); // 쿠키 유효 기간 14일
+            response.addCookie(loginCookie);
         }
 
 
-        return response.toString();
+        return null;
     }
 
 
-    private ResponseDto getKakaoToken(String code){
+    private LoginDto getKakaoToken(String code){
         // token 요청 url
         String kakaoTokenUrl = "https://kauth.kakao.com/oauth/token";
         RestTemplate restTemplate = new RestTemplate();
@@ -98,7 +135,7 @@ public class KakaoLoginProcess {
                 + "&client_secret=" + kakao_clientSecret; // 선택 : [내 애플리케이션] > [카카오 로그인] > [보안]
 
         ResponseEntity<String> response = null;
-        ResponseDto res = new ResponseDto();
+        LoginDto dto = new LoginDto();
 
         HttpEntity<String> requestEntity = new HttpEntity<>(body, headers);
 
@@ -112,15 +149,15 @@ public class KakaoLoginProcess {
             );
             // 응답 수집
             JSONObject jsonResponse = new JSONObject(response.getBody());
-            res.setTokenType(jsonResponse.getString("token_type"));
-            res.setAccessToken(jsonResponse.getString("access_token"));
-            res.setRefreshToken(jsonResponse.getString("refresh_token"));
-            res.setExpiresIn(jsonResponse.getInt("expires_in"));
-            res.setIdToken(jsonResponse.getString("id_token"));
-            res.setRefreshTokenExpiresIn(jsonResponse.getInt("refresh_token_expires_in"));
-            res.setScope(jsonResponse.getString("scope"));
+            dto.setTokenType(jsonResponse.getString("token_type"));
+            dto.setAccessToken(jsonResponse.getString("access_token"));
+            dto.setRefreshToken(jsonResponse.getString("refresh_token"));
+            dto.setExpiresIn(jsonResponse.getInt("expires_in"));
+            dto.setIdToken(jsonResponse.getString("id_token"));
+            dto.setRefreshTokenExpiresIn(jsonResponse.getInt("refresh_token_expires_in"));
+            dto.setScope(jsonResponse.getString("scope"));
 
-            return res;
+            return dto;
 
         }catch (Exception e){
             System.out.println("kakao getToken error");
@@ -130,19 +167,55 @@ public class KakaoLoginProcess {
 
     }
 
-    private void decodeToken(String idToken , ResponseDto res){
+    private void verifyToken(String idToken, LoginDto dto) {
+        String[] parts = idToken.split("\\.");
+        String headerJson = new String(Base64.getUrlDecoder().decode(parts[0]));
+        String kid = "";
 
-        // 디코딩
-        DecodedJWT decodedJWT = JWT.decode(idToken);
-        String payload = new String(Base64.getUrlDecoder().decode(decodedJWT.getPayload()));
-        JSONObject jsonPayload = new JSONObject(payload);
+        try {
+            kid = new ObjectMapper().readTree(headerJson).get("kid").asText();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        res.setLoginId(jsonPayload.getString("sub"));
-        res.setAppKey(jsonPayload.getString("aud"));
+        PublicKey publicKey = getPublicKey(kid);
 
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(publicKey)
+                .build()
+                .parseClaimsJws(idToken)
+                .getBody();
+
+        dto.setLoginId(claims.get("sub", String.class));
+        dto.setAppKey(claims.get("aud", String.class));
     }
 
+    public static PublicKey getPublicKey(String kid) {
+        try {
+            URL url = new URL("https://kauth.kakao.com/.well-known/jwks.json");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
 
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode jwks = mapper.readTree(conn.getInputStream()).get("keys");
+
+            for (JsonNode key : jwks) {
+                if (key.get("kid").asText().equals(kid)) {
+                    // n과 e를 Base64 URL 디코딩 후 BigInteger로 변환
+                    BigInteger modulus = new BigInteger(1, Base64.getUrlDecoder().decode(key.get("n").asText()));
+                    BigInteger exponent = new BigInteger(1, Base64.getUrlDecoder().decode(key.get("e").asText()));
+
+                    // RSAPublicKeySpec을 사용해 공개 키 생성
+                    KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+                    return keyFactory.generatePublic(new RSAPublicKeySpec(modulus, exponent));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 
 
 }

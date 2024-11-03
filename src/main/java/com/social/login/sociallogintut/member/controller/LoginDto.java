@@ -3,7 +3,7 @@ package com.social.login.sociallogintut.member.controller;
 import lombok.Data;
 
 @Data
-public class ResponseDto {
+public class LoginDto {
 
     private String tokenType; // kakao ,
     private String accessToken; // kakao ,

@@ -7,4 +7,5 @@ public interface UserMapper {
 
     User findByLoginTypeAndLoginId(User user);
 
+    int save(User user);
 }

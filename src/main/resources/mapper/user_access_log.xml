@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.social.login.sociallogintut.member.mapper.UserAccessLogMapper">
+
+    <!-- 로그아웃시에는 user_id = #{userId} AND logout_time = null select 해서 logout 시켜주면 될듯?-->
+
+
+    <insert id="login" parameterType="int">
+        INSERT INTO social_login.user_access_log (user_id , login_time)
+        VALUES (#{userId} , NOW())
+    </insert>
+
+
+</mapper>

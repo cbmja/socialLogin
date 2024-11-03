@@ -11,7 +11,6 @@ public class MemberInfoService {
 
     private final SqlSessionTemplate sql;
 
-
     public User findByLoginTypeAndLoginId(User user){
         return sql.selectOne("com.social.login.sociallogintut.member.mapper.UserMapper.findByLoginTypeAndLoginId", user);
     }

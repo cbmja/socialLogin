@@ -5,8 +5,13 @@
 <mapper namespace="com.social.login.sociallogintut.member.mapper.UserMapper">
 
     <select id="findByLoginTypeAndLoginId" parameterType="User" resultType="User">
-        SELECT * FROM socail_login.user WHERE login_type = #{loginType} AND login_id = #{loginId}
+        SELECT * FROM social_login.user WHERE login_type = #{loginType} AND login_id = #{loginId}
     </select>
+
+    <insert id="save" parameterType="User">
+        INSERT INTO social_login.user (user_name , login_type , login_id , reg_date , phone_num , email)
+            VALUES (#{userName} , #{loginType} , #{loginId} , NOW() , #{phoneNum} , #{email})
+    </insert>
 
 
 </mapper>
