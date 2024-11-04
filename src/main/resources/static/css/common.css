@@ -1,0 +1,34 @@
+
+a{
+    text-decoration: none;
+}
+button:hover{
+    cursor: pointer;
+}
+.basic-ar{
+    margin: 0px;
+    background-color: rgba(248, 238, 225, 1);
+}
+.main-content-ar{
+    width: 100%;
+    height: 1700px;
+}
+
+#test-submit-button {
+    position: fixed;         /* 스크롤에도 고정 */
+    top: 10px;               /* 화면 위에서 10px 내려옴 */
+    right: 10px;             /* 화면 오른쪽에서 10px 떨어짐 */
+    z-index: 1000;           /* 다른 요소 위에 표시 */
+    padding: 30px 60px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* 버튼에 마우스를 올릴 때 스타일 */
+#test-submit-button:hover {
+    background-color: #45a049;
+}

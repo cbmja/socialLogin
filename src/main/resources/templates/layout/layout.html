@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <!-- 공통 css -->
+    <link rel="stylesheet" th:href="@{/css/common.css}">
+    <!-- 공통 css -->
+
+    <!-- 레이아웃 css -->
+    <link rel="stylesheet" th:href="@{/css/layout/layouts.css}">
+    <!-- 레이아웃 css -->
+    <link rel="stylesheet" th:href="@{/css/main/main.css}">
+    <!-- 메인 -->
+    <th:block th:if="${pageType == 'main'}">
+        <link rel="stylesheet" th:href="@{/css/view/main/main.css}">
+    </th:block>
+
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+</head>
+<body class="basic-ar">
+
+<!--헤더-->
+<th:block th:replace="~{layout/header :: header}"></th:block>
+
+<!-- 네비 -->
+<th:block th:replace="~{layout/navbar :: navbar}"></th:block>
+
+<!-- 컨텐츠 -->
+<div class="main-content-ar">
+    <div layout:fragment="content">
+
+    </div>
+</div>
+
+
+</body>
+</html>

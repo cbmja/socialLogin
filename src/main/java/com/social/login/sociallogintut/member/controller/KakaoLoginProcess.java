@@ -3,7 +3,6 @@ package com.social.login.sociallogintut.member.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.social.login.sociallogintut.member.dto.User;
-import com.social.login.sociallogintut.member.service.LoginService;
 import com.social.login.sociallogintut.member.service.MemberService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -45,7 +44,6 @@ public class KakaoLoginProcess {
     private String kakao_redirectUri;
 
     private final MemberService memberService;
-    private final LoginService loginService;
 
 
     @GetMapping("/kakao/callback")
@@ -69,7 +67,9 @@ public class KakaoLoginProcess {
         LoginDto loginDto = this.getKakaoToken(code);
         System.out.println("===== id_token: "+loginDto.getIdToken()+"============================================================================================================================================");
         // id token 디코딩 -------------------------------------------------------------------------------- id token 디코딩 ok
-        this.verifyToken(loginDto.getIdToken() , loginDto);
+        if("nonce".equals(this.verifyToken(loginDto.getIdToken() , loginDto))){
+            return null; // nonce 검증 실패
+        }
         String loginId = loginDto.getLoginId();
         if(loginId == null || loginId.isBlank()){
             return null; // token decode 실패
@@ -86,7 +86,7 @@ public class KakaoLoginProcess {
             System.out.println("sign up====================================================================================================================================================================================");
             // 동의 항목 수집 필요
             
-            user.setUserName(loginService.genUserName());
+            user.setUserName(memberService.genUserName());
 
             int joinResult = memberService.save(user);
             if(joinResult <= 0){
@@ -99,7 +99,7 @@ public class KakaoLoginProcess {
         if(loginResult <= 0){
             return null; //로그인 실패
         }else{
-            loginService.setCookie(response,user);
+            memberService.setCookie(response,user);
         }
 
 
@@ -156,7 +156,7 @@ public class KakaoLoginProcess {
     }
 
     // id 토큰 검증
-    private void verifyToken(String idToken, LoginDto dto) {
+    private String verifyToken(String idToken, LoginDto dto) {
         String[] parts = idToken.split("\\.");
         String headerJson = new String(Base64.getUrlDecoder().decode(parts[0]));
         String kid = "";
@@ -174,9 +174,16 @@ public class KakaoLoginProcess {
                 .build()
                 .parseClaimsJws(idToken)
                 .getBody();
+        String nonce = claims.get("nonce", String.class);
+        String _nonce = "1234";
+        if(!nonce.equals(_nonce)){
+            return "nonce";
+        }
 
         dto.setLoginId(claims.get("sub", String.class));
         dto.setAppKey(claims.get("aud", String.class));
+
+        return "success";
     }
     // kakao publickey 발급
     public static PublicKey getPublicKey(String kid) {

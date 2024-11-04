@@ -49,8 +49,8 @@ public class LoginController {
                             +"&redirect_uri=" + kakao_redirectUri // 필수
                             +"&response_type=code" // 필수 'code' 고정
                             +"&state=1234" // 선택 csrf 방어
-                            +"&scope=openid"; // 선택 id_token 발급받기 위해
-                            //+"&nonce="
+                            +"&scope=openid" // 선택 id_token 발급받기 위해
+                            +"&nonce=1234"; // 선택 id_token 위조방지
 
         return new RedirectView(kakaAuthUrl);
     }

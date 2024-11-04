@@ -1,0 +1,44 @@
+.main-page{
+    height: 1100px;
+    display: flex;
+    flex-direction: column;      /* 수직 방향으로 나열 */
+    align-items: center;
+    margin-left: 7%;
+    margin-right: 7%;
+}
+
+.main-sub-ar{
+    width: 100%;
+    height: 500px;
+    margin-top: 3%;
+    display: flex;
+    flex-direction: column;      /* 수직 방향으로 나열 */
+    align-items: center;
+}
+
+.mian-title-ar{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+}
+
+.main-title{
+    color: rgba(230, 90, 65, 1);
+}
+
+.main-sub-content-ar{
+    display: flex;
+    justify-content: space-between;    /* 수평 중앙 정렬 */
+    align-items: center;
+
+    width: 100%;
+    height: 495px;
+}
+
+.main-sub-content{
+    width: 47%;
+    height: 423px;
+    border-radius: 15px;
+    border: 3px solid black;
+}

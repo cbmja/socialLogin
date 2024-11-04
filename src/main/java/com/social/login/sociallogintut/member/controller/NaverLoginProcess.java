@@ -3,7 +3,6 @@ package com.social.login.sociallogintut.member.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.social.login.sociallogintut.member.dto.User;
-import com.social.login.sociallogintut.member.service.LoginService;
 import com.social.login.sociallogintut.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,7 +40,6 @@ public class NaverLoginProcess {
     @Value("${naver.redirectUri}")
     private String naver_redirectUri;
     private final MemberService memberService;
-    private final LoginService loginService;
 
     @GetMapping("/naver/callback")
     public String naverLoginProc(@RequestParam Map<String , String> params , HttpServletRequest request , HttpServletResponse response){
@@ -88,7 +86,7 @@ public class NaverLoginProcess {
             System.out.println("sign up====================================================================================================================================================================================");
             // 동의 항목 수집 필요
 
-            user.setUserName(loginService.genUserName());
+            user.setUserName(memberService.genUserName());
 
             int joinResult = memberService.save(user);
             if(joinResult <= 0){
@@ -104,7 +102,7 @@ public class NaverLoginProcess {
         if(loginResult <= 0){
             return null; //로그인 실패
         }else{
-            loginService.setCookie(response,user);
+            memberService.setCookie(response,user);
         }
 
 
