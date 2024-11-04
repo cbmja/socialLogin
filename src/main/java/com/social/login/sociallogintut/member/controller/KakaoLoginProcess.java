@@ -3,11 +3,10 @@ package com.social.login.sociallogintut.member.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.social.login.sociallogintut.member.dto.User;
-import com.social.login.sociallogintut.member.service.MemberInfoService;
-import com.social.login.sociallogintut.member.service.MemberSaveService;
+import com.social.login.sociallogintut.member.service.LoginService;
+import com.social.login.sociallogintut.member.service.MemberService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigInteger;
@@ -46,12 +44,11 @@ public class KakaoLoginProcess {
     @Value("${kakao.redirectUri}")
     private String kakao_redirectUri;
 
-    private final MemberInfoService memberInfoService;
-    private final MemberSaveService memberSaveService;
+    private final MemberService memberService;
+    private final LoginService loginService;
 
 
     @GetMapping("/kakao/callback")
-    @ResponseBody
     public String kakaoLoginProc(@RequestParam Map<String , String> params , HttpServletRequest request , HttpServletResponse response){
 
         String code = (String)params.get("code");
@@ -69,7 +66,6 @@ public class KakaoLoginProcess {
         }
 
         // token 요청 ----------------------------------------------------------------------------------------- token 요청 ok
-        // token_type / access_token / id_token expires_in / refresh_token / refresh_token_expires_in / scope
         LoginDto loginDto = this.getKakaoToken(code);
         System.out.println("===== id_token: "+loginDto.getIdToken()+"============================================================================================================================================");
         // id token 디코딩 -------------------------------------------------------------------------------- id token 디코딩 ok
@@ -84,42 +80,34 @@ public class KakaoLoginProcess {
         user.setLoginId(loginDto.getLoginId());
         System.out.println("===== loginType: "+user.getLoginType()+"============================================================================================================================================");
         System.out.println("===== loginId: "+user.getLoginId()+"============================================================================================================================================");
-        User isUser = memberInfoService.findByLoginTypeAndLoginId(user);
+        User isUser = memberService.findByLoginTypeAndLoginId(user);
         // 회원 가입 -------------------------------------------------------------------------------------------- 회원 가입 ok
         if(isUser == null){
             System.out.println("sign up====================================================================================================================================================================================");
             // 동의 항목 수집 필요
             
-            user.setUserName(memberSaveService.genUserName());
+            user.setUserName(loginService.genUserName());
 
-            int joinResult = memberSaveService.save(user);
+            int joinResult = memberService.save(user);
             if(joinResult <= 0){
                 return null; // 회원가입 실패
             }
-            
-
         }
-
         // 로그인 ------------------------------------------------------------------------------------------- 로그인
         System.out.println("sign in====================================================================================================================================================================================");
-        int loginResult = memberSaveService.login(user.getUserId());
+        int loginResult = memberService.login(user.getUserId());
         if(loginResult <= 0){
             return null; //로그인 실패
         }else{
-            String loginToken = memberSaveService.genAccessToken(user);
-
-            Cookie loginCookie = new Cookie("accessToken" , loginToken);
-            loginCookie.setPath("/");
-            loginCookie.setHttpOnly(true); // 자바스크립트에서 접근 불가하게 설정(보안)
-            loginCookie.setMaxAge(60 * 60 * 24 * 14); // 쿠키 유효 기간 14일
-            response.addCookie(loginCookie);
+            loginService.setCookie(response,user);
         }
 
 
-        return null;
+        return "/view/index";
     }
 
 
+    // kakao 서버에 토큰 요청 / access , refresh , id token ... etc
     private LoginDto getKakaoToken(String code){
         // token 요청 url
         String kakaoTokenUrl = "https://kauth.kakao.com/oauth/token";
@@ -167,6 +155,7 @@ public class KakaoLoginProcess {
 
     }
 
+    // id 토큰 검증
     private void verifyToken(String idToken, LoginDto dto) {
         String[] parts = idToken.split("\\.");
         String headerJson = new String(Base64.getUrlDecoder().decode(parts[0]));
@@ -189,7 +178,7 @@ public class KakaoLoginProcess {
         dto.setLoginId(claims.get("sub", String.class));
         dto.setAppKey(claims.get("aud", String.class));
     }
-
+    // kakao publickey 발급
     public static PublicKey getPublicKey(String kid) {
         try {
             URL url = new URL("https://kauth.kakao.com/.well-known/jwks.json");

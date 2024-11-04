@@ -3,8 +3,9 @@ package com.social.login.sociallogintut.member.service;
 import com.social.login.sociallogintut.member.dto.User;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -15,19 +16,23 @@ import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
-public class MemberSaveService {
+public class LoginService {
     @Value("${jwt.secret}")
     private String jwt_secret;
 
-    private final SqlSessionTemplate sql;
 
-    public int save(User user){
-        return sql.insert("com.social.login.sociallogintut.member.mapper.UserMapper.save", user);
+
+    public void setCookie(HttpServletResponse response , User user){
+        String loginToken = this.genAccessToken(user);
+
+        Cookie loginCookie = new Cookie("accessToken" , loginToken);
+        loginCookie.setPath("/");
+        loginCookie.setHttpOnly(true); // 자바스크립트에서 접근 불가하게 설정(보안)
+        loginCookie.setMaxAge(60 * 60 * 24 * 14); // 쿠키 유효 기간 14일
+        response.addCookie(loginCookie);
+
     }
 
-    public int login(int userId){
-        return sql.insert("com.social.login.sociallogintut.member.mapper.UserAccessLogMapper.login",userId);
-    }
 
     public String genUserName(){
         Random random = new Random();

@@ -56,10 +56,15 @@ public class LoginController {
     }
 
     @GetMapping("/naver/auth")
-    public String naverAuth(){
+    public RedirectView naverAuth(){
+        //인가코드 요청 url
+        String naverAuthUrl = "https://nid.naver.com/oauth2.0/authorize"
+                +"?response_type=code" // 필수 'code' 고정
+                +"&client_id=" + naver_clientId // 필수
+                +"&redirect_uri=" + naver_redirectUri // 필수
+                +"&state=1234"; // 선택 csrf 방어
 
-        System.out.println("naver start");
-        return null;
+        return new RedirectView(naverAuthUrl);
     }
 
 }
