@@ -105,11 +105,12 @@
 <br/>
 
 ### ![icons8-압박-붕대](https://github.com/user-attachments/assets/b335475f-c4b3-43cd-ac2d-1eedac163e59) ERD
-[erd.pdf](https://github.com/user-attachments/files/18574922/erd.pdf)
+
+![화면 캡처 2025-01-25 124236](https://github.com/user-attachments/assets/df7bacfb-d991-41a5-836f-68fee1be2b65)
 
 - member : 회원정보
 - exam : 시험 정보 (2급 생활스포츠지도사, 노인 스포츠지도사, 등 총 9개 시험)
-  >> 총 21개의 과목 중 시험별로 응시해야 하는 과목이 다르며, 1.선택과목 + 필수과목 / 2.선택과목 / 3.필수과목 총 세가지 타입으로 분류됨
+  > 총 21개의 과목 중 시험별로 응시해야 하는 과목이 다르며, 1.선택과목 + 필수과목 / 2.선택과목 / 3.필수과목 총 세가지 타입으로 분류됨
 - subject : 과목(21가지)
 - exam_subject : 시험별 응시해야 하는 과목
 - update_exam : db에 등록된 응시 가능 시험 정보
