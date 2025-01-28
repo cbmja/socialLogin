@@ -10,7 +10,7 @@
 - ERD
 - API 명세
 - 주요 기능
-- 자체 피드백
+- 소감
 
 ---
 
@@ -87,7 +87,7 @@
 
 <br/>
 
-### <img src="https://github.com/user-attachments/assets/dd4852de-39e0-4265-98c2-fcb4b271eddb" alt="free-animated-icon-review" width="48" height="48"> 6. 자체 피드백
+### <i감
 
 
 
