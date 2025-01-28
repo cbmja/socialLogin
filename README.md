@@ -75,7 +75,7 @@
 
 ### ![icons8-문서](https://github.com/user-attachments/assets/b316ca03-a738-4304-81d3-89391e71a89b) 4. API 명세
 
-<img src="https://github.com/user-attachments/assets/6493b55e-fb4a-4238-b46c-64e4d5118b61" alt="free-animated-icon-review" width="357" height="655">
+![resized_image](https://github.com/user-attachments/assets/91d301d7-861d-4b5a-ac86-7ba03b193398)
 
 ---
 
