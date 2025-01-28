@@ -2,7 +2,7 @@
 ## URL : <a href="http://spocbt.cafe24.com/exam/list" target="_blank"> spocbt </a>
 [ spocbt ]([https://www.google.com/](http://spocbt.cafe24.com/exam/list)){:target="_blank"}
 
-[구글 웹싸이트 가기](http://google.com){: target="_blank"}
+[구글 웹싸이트 가기] (http://google.com) {: target="_blank"}
 
 <br/>
 
