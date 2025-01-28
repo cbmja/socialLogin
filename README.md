@@ -143,9 +143,6 @@
 
 <br/>
 
-### ![free-animated-icon-review-12134163](https://github.com/user-attachments/assets/dd4852de-39e0-4265-98c2-fcb4b271eddb) 자체 피드백
-
-
 ### <img src="https://github.com/user-attachments/assets/dd4852de-39e0-4265-98c2-fcb4b271eddb" alt="free-animated-icon-review" width="48" height="48"> 자체 피드백
 
 
