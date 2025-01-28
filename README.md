@@ -130,7 +130,7 @@
 <br/>
 
 ### ![icons8-문서](https://github.com/user-attachments/assets/b316ca03-a738-4304-81d3-89391e71a89b) API 명세
-![11111_0001](https://github.com/user-attachments/assets/76c0e903-6ab3-485a-afc6-4f2834b45305)
+![11111_0001](https://github.com/user-attachments/assets/6493b55e-fb4a-4238-b46c-64e4d5118b61)
 
 ---
 
