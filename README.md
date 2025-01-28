@@ -1,6 +1,9 @@
 # [ 자격증 기출문제 온라인 풀이 서비스 ]
 ## URL : <a href="http://spocbt.cafe24.com/exam/list" target="_blank"> spocbt </a>
 [ spocbt ]([https://www.google.com/](http://spocbt.cafe24.com/exam/list)){:target="_blank"}
+
+[구글 웹싸이트 가기](http://google.com){: target="_blank"}
+
 <br/>
 
 # ![icons8-썸네일-보기](https://github.com/user-attachments/assets/06048a41-ac4a-4ac6-9294-33c71a7fb568) 목차  
