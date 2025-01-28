@@ -87,7 +87,7 @@
 
 <br/>
 
-### <i감
+### <img src="https://github.com/user-attachments/assets/dd4852de-39e0-4265-98c2-fcb4b271eddb" alt="free-animated-icon-review" width="48" height="48"> 6. 소감
 
 
 
