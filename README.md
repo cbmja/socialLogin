@@ -3,7 +3,7 @@
 
 <br/>
 
-# ![icons8-썸네일-보기](https://github.com/user-attachments/assets/06048a41-ac4a-4ac6-9294-33c71a7fb568) [ 목차 ] 
+# ![icons8-썸네일-보기](https://github.com/user-attachments/assets/06048a41-ac4a-4ac6-9294-33c71a7fb568) 목차  
 
 - 프로젝트 소개
 - 기술 스택
