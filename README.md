@@ -107,9 +107,7 @@
 
 ### ![icons8-압박-붕대](https://github.com/user-attachments/assets/b335475f-c4b3-43cd-ac2d-1eedac163e59) ERD
 
-![화면 캡처 2025-01-25 124236](https://github.com/user-attachments/assets/df7bacfb-d991-41a5-836f-68fee1be2b65)
-
-
+![화면 캡처 2025-01-25 124236](https://github.com/user-attachments/assets/158a21fe-2929-46eb-b28d-e8d0badbd49b)
 
 > 총 21개의 과목 중 시험별로 응시해야 하는 과목이 다름.
 
