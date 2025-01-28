@@ -15,7 +15,8 @@
 
 <br/>
 
-# [ 프로젝트 소개 ]
+# ![icons8-연필](https://github.com/user-attachments/assets/4e5e85df-cf09-4afe-ab60-02b572ee64e7) 프로젝트 소개
+
 [ spocbt ]는 1년에 약 45,000명이 응시하는 '생활스포츠지도사' 시험의 온라인 문제 풀이 사이트입니다.
 무료 온라인 필기 시험 기능이 제공되며 체육인들의 정보 공유를 위한 커뮤니티 서비스를 제공합니다.
 
@@ -23,7 +24,8 @@
 
 <br/>
 
-# [ 기술 스택 ]
+# ![icons8-설정-3](https://github.com/user-attachments/assets/3b5f83d7-a26e-4aa9-83fe-6b7204af69d3) 기술 스택
+
 
 >__language__
 - ### ![icons8-자바-커피-컵-로고-48](https://github.com/user-attachments/assets/02ef5592-484a-4d6d-b042-2aeeb2a8e8e7) java17 &nbsp;&nbsp; ![icons8-자바-스크립트-48](https://github.com/user-attachments/assets/88394d65-dc3a-4705-8e96-313cf27e533e) javascript &nbsp;&nbsp; ![icons8-html-48](https://github.com/user-attachments/assets/7bdfe914-9157-469a-bdf1-9bb047e90d88) html5 &nbsp;&nbsp; ![icons8-css3-48](https://github.com/user-attachments/assets/8a33fb8d-3687-4ecf-b116-5386b094fdf8) css3
