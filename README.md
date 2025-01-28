@@ -9,7 +9,7 @@
 ## database
 - ### ![icons8-mysql-48](https://github.com/user-attachments/assets/148c0145-c45f-4e55-97e9-e18ee4880953) mysql &nbsp;&nbsp; ![icons8-postgreesql-48](https://github.com/user-attachments/assets/966d0766-dc0a-4fd8-81af-4af66347b171) postgresql
 
-## dev-tool
+## util
 - ### ![icons8-intellij-idea-48](https://github.com/user-attachments/assets/abdb4127-d741-4611-86ac-6b3674d05799) intelliJ &nbsp;&nbsp; ![icons8-비주얼-스튜디오-48](https://github.com/user-attachments/assets/b8ab6929-9021-428d-8827-2a57d3d94576) vscode
 
 
