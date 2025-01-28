@@ -10,6 +10,7 @@
 - ERD
 - API 명세
 - 주요 기능
+- 자체 피드백백
 
 ---
 
@@ -138,6 +139,9 @@
 
 ### ![icons8-시스템-작업](https://github.com/user-attachments/assets/cb69de7e-c678-434e-8084-68c0d98387de) 주요 기능
 
+---
+
+<br/>
 
 
 
