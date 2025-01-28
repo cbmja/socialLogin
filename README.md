@@ -1,8 +1,6 @@
 # [ 자격증 기출문제 온라인 풀이 서비스 ]
 ## URL : <a href="http://spocbt.cafe24.com/exam/list" target="_blank"> spocbt </a>
 
----
-
 <br/>
 
 # [ 목차 ] 
