@@ -122,8 +122,8 @@ https://github.com/user-attachments/assets/5e2e08ba-a14c-4371-a766-0e3378e0d9d1
 1. 공식적으로 제공되는 pdf 시험지를 html로 변환
 2. html 파일 내부의 선택지에 data 속성을 통해 어떤 과목의 몇 번 문제의 몇 번 선택지인지 구분할 수 있도록 함.
 
-사실 pdf 시험지를 응시 가능한 html 시험지로 변환하는 과정이 제일 큰 고비였습니다.
-이는 구글링과 chat gpt를 활용하여 python으로 작업하였습니다.
+사실 pdf 시험지를 응시 가능한 html 시험지로 변환하는 과정이 제일 큰 고비였습니다. <br/>
+이는 구글링과 chat gpt를 활용하여 python으로 작업하였습니다. <br/>
 시험지 생성 레포지토리 : <a href="https://github.com/cbmja/spocbtPython.git" target="_blank"> python code </a>
 
 
