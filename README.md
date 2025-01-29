@@ -124,8 +124,7 @@ https://github.com/user-attachments/assets/5e2e08ba-a14c-4371-a766-0e3378e0d9d1
 
 사실 pdf 시험지를 응시 가능한 html 시험지로 변환하는 과정이 제일 큰 고비였습니다.
 이는 구글링과 chat gpt를 활용하여 python으로 작업하였습니다.
-
-
+시험지 생성 레포지토리 : <a href="https://github.com/cbmja/spocbtPython.git" target="_blank"> python code </a>
 
 
 
