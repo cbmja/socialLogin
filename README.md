@@ -85,7 +85,7 @@
 
 ### 응시 가능 시험 목록
 
-https://github.com/user-attachments/assets/3687a372-148b-4947-85ec-523805e061cd
+https://github.com/user-attachments/assets/75a5813f-3f5d-45ad-b357-965de76ac26b
 
 <br/>
 
@@ -97,15 +97,13 @@ https://github.com/user-attachments/assets/ced6d405-3973-481b-a6b5-88c33683376a
 
 ### 시험 응시 화면
 
-https://github.com/user-attachments/assets/2fb47d90-0c22-4374-98c9-e2b28d85a164
+https://github.com/user-attachments/assets/f1dc6f49-383f-452d-add9-70a4c4d0bd02
 
 <br/>
 
 ### 시험 채점
 
 https://github.com/user-attachments/assets/5e2e08ba-a14c-4371-a766-0e3378e0d9d1
-
-
 
 
 ---
