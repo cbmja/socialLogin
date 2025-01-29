@@ -111,6 +111,20 @@ https://github.com/user-attachments/assets/5e2e08ba-a14c-4371-a766-0e3378e0d9d1
 
 ### <img src="https://github.com/user-attachments/assets/dd4852de-39e0-4265-98c2-fcb4b271eddb" alt="free-animated-icon-review" width="48" height="48"> 6. 소감
 
+<br/>
+
+빠른 구현에 초점을 맞춰 프로젝트를 진행을 해서인지 DB 설계와 API 설계에서 아쉬운 부분이 많이 있습니다.
+
+해당 프로젝트는 조금더 발전시켜서 서비스를 해보고 싶다는 생각이 있기 때문에 일단 restful 하게 api를 수정하고,
+시험 문제를 하나하나 추출하여 문제은행식으로 관리해 보려고 합니다.
+
+현재 응시하는 시험지의 제작 과정은 아래와 같습니다.
+1. 공식적으로 제공되는 pdf 시험지를 html로 변환
+2. html 파일 내부의 선택지에 data 속성을 통해 어떤 과목의 몇 번 문제의 몇 번 선택지인지 구분할 수 있도록 함.
+
+사실 pdf 시험지를 응시 가능한 html 시험지로 변환하는 과정이 제일 큰 고비였습니다.
+이는 구글링과 chat gpt를 활용하여 python으로 작업하였습니다.
+
 
 
 
