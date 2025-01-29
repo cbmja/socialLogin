@@ -9,7 +9,7 @@
 - 기술 스택
 - ERD
 - API 명세
-- 주요 기능
+- 설명
 - 소감
 
 ---
@@ -81,7 +81,32 @@
 
 <br/>
 
-### ![icons8-시스템-작업](https://github.com/user-attachments/assets/cb69de7e-c678-434e-8084-68c0d98387de) 5. 주요 기능
+### ![icons8-시스템-작업](https://github.com/user-attachments/assets/cb69de7e-c678-434e-8084-68c0d98387de) 5. 설명
+
+### 응시 가능 시험 목록
+
+https://github.com/user-attachments/assets/3687a372-148b-4947-85ec-523805e061cd
+
+<br/>
+
+### 시험 선택 후 응시 과목 선택 모달
+
+https://github.com/user-attachments/assets/ced6d405-3973-481b-a6b5-88c33683376a
+
+<br/>
+
+### 시험 응시 화면
+
+https://github.com/user-attachments/assets/2fb47d90-0c22-4374-98c9-e2b28d85a164
+
+<br/>
+
+### 시험 채점
+
+https://github.com/user-attachments/assets/5e2e08ba-a14c-4371-a766-0e3378e0d9d1
+
+
+
 
 ---
 
